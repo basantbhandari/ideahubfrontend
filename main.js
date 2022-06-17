@@ -4,6 +4,9 @@ var textArea__update = document.getElementById("update__textarea");
 var updateBtn = document.getElementById("update__submit__btn");
 
 
+// const backendURL = "http://localhost:3000/";
+const backendURL = "https://rough-substantial-rifle.glitch.me/"
+
 
 
 function eventListenerOnItemAdd(){
@@ -119,7 +122,7 @@ submitBtn.onclick = function(){
 
 // create function to create a todo item using async await
 async function createTodoItem(myData){
-    var response = await fetch("http://localhost:3000/create_todo/", {
+    var response = await fetch(`${backendURL}create_todo/`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -138,7 +141,7 @@ async function createTodoItem(myData){
 
 // create function to read a todo item using async await
 async function readTodoAll(){
-    var response = await fetch("http://localhost:3000/read_todos/");
+    var response = await fetch(`${backendURL}read_todos/`);
     // error handling
     if(!response.ok){
         throw new Error("Something went wrong");
@@ -159,7 +162,7 @@ readTodoAll().then(function(){
 
 // function to update a todo item using async await
 async function updateTodoItem(myData, key){
-    var response = await fetch(`http://localhost:3000/update_todo/${key}`, {
+    var response = await fetch(`${backendURL}update_todo/${key}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -174,25 +177,6 @@ async function updateTodoItem(myData, key){
     try{
         var data = await response.json();
         console.log(data);
-    }catch(err){
-        console.log("my error"+err);
-    }
-}
-
-// function to delete a todo item using async await
-async function deleteTodoItem(key){
-    var response = await fetch(`http://localhost:3000/delete_todo/${key}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    });
-    // error handling
-    if(!response.ok){
-        throw new Error("Something went wrong");
-    }
-    try{
-        var data = await response.json();
     }catch(err){
         console.log("my error"+err);
     }
